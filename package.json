@@ -16,12 +16,11 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
     "bulma": "^0.8.0",
     "d3": "^5.15.0",
     "rollup-plugin-postcss": "^2.0.6",
     "sirv-cli": "^0.4.4",
-    "svelte-router-spa": "^5.3.3",
-    "svelte-select": "^3.3.7"
+    "svelte-select": "^3.3.7",
+    "svelte-spa-router": "^2.0.0"
   }
 }

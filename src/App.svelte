@@ -1,11 +1,11 @@
 <script>
-  import { Router, Route, Navigate } from 'svelte-router-spa'
+  import Router, { link } from 'svelte-spa-router'
   import { routes } from './routes'
   import 'bulma/css/bulma.css'
   import { mbpo_capital } from './stores'
   import * as d3 from 'd3'
 
-  d3.csv('/data/mbpo_capital.csv').then(data => {
+  d3.csv('data/mbpo_capital.csv').then(data => {
     mbpo_capital.set(data)
   })
 </script>
@@ -14,13 +14,13 @@
   <nav>
     <ul>
       <li>
-        <Navigate to="/">Home</Navigate>
+        <a href="/" use:link>Home</a>
       </li>
       <li>
-        <Navigate to="/geographies">Geographies</Navigate>
+        <a href="/geographies" use:link>Geographies</a>
       </li>
       <li>
-        <Navigate to="/schools">Schools</Navigate>
+        <a href="/schools" use:link>Schools</a>
       </li>
     </ul>
   </nav>

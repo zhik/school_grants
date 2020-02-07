@@ -1,7 +1,6 @@
 <script>
   import Table from '../components/table.svelte'
   import Map from '../components/map.svelte'
-  import { faAngleDown } from '@fortawesome/fontawesome-free'
   import { format } from 'd3'
 
   export let item
