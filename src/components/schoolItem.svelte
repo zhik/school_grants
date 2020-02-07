@@ -89,17 +89,15 @@
   </div>
   <div class="message-body  {isActive ? 'isActive' : ''}">
     <div class="content">
-      <p class="subtitle is-6">Projects with DBN</p>
-      <Table columns="{dbn_table.columns}" rows="{dbn_table.rows}"></Table>
-
       <div class="columns is-mobile is-centered">
         <div class="column is-four-fifths map">
           <Map data="{dbn_geojson}"></Map>
         </div>
       </div>
+      <Table columns="{dbn_table.columns}" rows="{dbn_table.rows}"></Table>
 
       {#if item.bbl_projects && item.bbl_projects.length}
-      <p class="subtitle is-6">Other projects in the lastest building</p>
+      <p class="subtitle is-5">Other projects in the most current building</p>
       <label class="checkbox">
         <input type="checkbox" bind:checked="{showAllBBLProjects}" />
         Show all projects
