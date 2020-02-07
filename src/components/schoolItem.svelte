@@ -1,5 +1,6 @@
 <script>
   import Table from '../components/table.svelte'
+  import Map from '../components/map.svelte'
   import { faAngleDown } from '@fortawesome/fontawesome-free'
   import { format } from 'd3'
 
@@ -15,6 +16,17 @@
   let bbl_table = {
     columns: [],
     rows: []
+  }
+  $: dbn_geojson = {
+    type: 'FeatureCollection',
+    features: item.dbn_projects.map(project => ({
+      type: 'Feature',
+      properties: project,
+      geometry: {
+        type: 'Point',
+        coordinates: [project.lng, project.lat]
+      }
+    }))
   }
 
   function toggleActive() {
@@ -41,8 +53,6 @@
         rows: item.dbn_projects
       }
     }
-
-    //todo hide duplicates
 
     if (item.bbl_projects && item.bbl_projects.length > 0) {
       bbl_table = {
@@ -83,6 +93,12 @@
       <p class="subtitle is-6">Projects with DBN</p>
       <Table columns="{dbn_table.columns}" rows="{dbn_table.rows}"></Table>
 
+      <div class="columns is-mobile is-centered">
+        <div class="column is-four-fifths map">
+          <Map data="{dbn_geojson}"></Map>
+        </div>
+      </div>
+
       {#if item.bbl_projects && item.bbl_projects.length}
       <p class="subtitle is-6">Other projects in the lastest building</p>
       <label class="checkbox">
@@ -96,6 +112,9 @@
 </article>
 
 <style>
+  .map {
+    height: 15rem;
+  }
   .message {
     max-width: 80vw;
   }
