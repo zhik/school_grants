@@ -2,6 +2,8 @@
   import Table from '../components/table.svelte'
   import Map from '../components/map.svelte'
   import { format } from 'd3'
+  import Icon from 'fa-svelte'
+  import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
   export let item
 
@@ -16,6 +18,12 @@
     columns: [],
     rows: []
   }
+
+  let council_table = {
+    columns: [],
+    rows: []
+  }
+
   $: dbn_geojson = {
     type: 'FeatureCollection',
     features: item.dbn_projects.map(project => ({
@@ -33,6 +41,7 @@
   }
 
   let showAllBBLProjects = false
+  let isMoreThanOneBBL = false
 
   $: {
     //format projects to columns and rows
@@ -40,7 +49,7 @@
       dbn_table = {
         columns: [
           { name: 'Project Title', key: 'project_title' },
-          { name: 'Year', key: 'year', format: year => +year },
+          { name: 'FY', key: 'year', format: year => +year },
           {
             name: 'Funding',
             key: 'funding_c',
@@ -51,13 +60,19 @@
         ],
         rows: item.dbn_projects
       }
+
+      isMoreThanOneBBL =
+        item.dbn_projects.reduce((bbl, project) => {
+          bbl.add(project.bbl)
+          return bbl
+        }, new Set([])).size > 1
     }
 
     if (item.bbl_projects && item.bbl_projects.length > 0) {
       bbl_table = {
         columns: [
           { name: 'Project Title', key: 'project_title' },
-          { name: 'Year', key: 'year', format: year => +year },
+          { name: 'FY', key: 'year', format: year => +year },
           {
             name: 'Funding',
             key: 'funding_c',
@@ -76,6 +91,34 @@
             )
       }
     }
+
+    if (item.council_projects && item.council_projects.length > 0) {
+      council_table = {
+        columns: [
+          { name: 'Project ID', key: 'project_id' },
+          { name: 'FY', key: 'year', format: year => +year },
+          {
+            name: 'Funding',
+            key: 'fy_now',
+            format: amt => {
+              return '$' + format(',')(amt)
+            }
+          },
+          {
+            name: 'Title',
+            key: 'title'
+          },
+          {
+            name: 'Desc',
+            key: 'desc'
+          },
+          { name: 'Sponsor', key: 'sponsor' },
+          { name: 'Short DBN', key: 'short_dbn' }
+        ],
+        //filter for duplicates from the dbn projects table
+        rows: item.council_projects
+      }
+    }
   }
 </script>
 <article class="message">
@@ -89,26 +132,39 @@
   </div>
   <div class="message-body  {isActive ? 'isActive' : ''}">
     <div class="content">
-      <div class="columns is-mobile is-centered">
-        <div class="column is-four-fifths map">
-          <Map data="{dbn_geojson}"></Map>
-        </div>
+      <div class="columns is-mobile is-centered map">
+        <Map data="{dbn_geojson}"></Map>
       </div>
       <Table columns="{dbn_table.columns}" rows="{dbn_table.rows}"></Table>
 
-      {#if item.bbl_projects && item.bbl_projects.length}
+      {#if isMoreThanOneBBL}
+      <div class="notification is-warning is-light">
+        <span class="icon"> <Icon icon="{faExclamationTriangle}"></Icon> </span
+        ><strong>Warning: </strong> This school has previous occupied or current
+        occupying different buildings.
+      </div>
+      {/if} {#if item.bbl_projects && item.bbl_projects.length}
+      <hr />
       <p class="subtitle is-5">Other projects in the most current building</p>
       <label class="checkbox">
         <input type="checkbox" bind:checked="{showAllBBLProjects}" />
         Show all projects
       </label>
       <Table columns="{bbl_table.columns}" rows="{bbl_table.rows}"></Table>
+      {/if} {#if item.council_projects && item.council_projects.length}
+      <Table
+        columns="{council_table.columns}"
+        rows="{council_table.rows}"
+      ></Table>
       {/if}
     </div>
   </div>
 </article>
 
 <style>
+  hr {
+    background-color: black;
+  }
   .map {
     height: 15rem;
   }

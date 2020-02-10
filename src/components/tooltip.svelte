@@ -20,7 +20,7 @@
     font-size: 0.8em;
     max-width: 300px;
     padding: 3px 6px;
-    margin-left: 2px;
+    margin-left: -320px;
     color: #fff;
     text-align: center;
     background-color: #000;

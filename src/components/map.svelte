@@ -4,8 +4,10 @@
   let container
   let layer
   let map
+  let zoom = 14
+
   onMount(() => {
-    map = L.map(container, { zoomControl: false }).setView([40.73, -74], 14)
+    map = L.map(container, { zoomControl: false }).setView([40.73, -74], zoom)
     L.tileLayer(
       'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png'
     ).addTo(map)
@@ -25,7 +27,7 @@
     }).addTo(map)
     const group = new L.featureGroup([layer])
     map.fitBounds(group.getBounds())
-    map.setZoom(14)
+    map.setZoom(zoom)
   }
 </script>
 

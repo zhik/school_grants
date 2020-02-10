@@ -2,11 +2,22 @@
   import Router, { link } from 'svelte-spa-router'
   import { routes } from './routes'
   import 'bulma/css/bulma.css'
-  import { mbpo_capital } from './stores'
+  import { mbpo_capital, council_capital_edu } from './stores'
   import * as d3 from 'd3'
 
   d3.csv('data/mbpo_capital.csv').then(data => {
     mbpo_capital.set(data)
+  })
+
+  d3.csv('data/council_capital_edu.csv').then(data => {
+    //split short_dbn to array of strings
+    data.forEach(
+      row =>
+        (row.short_dbn_array = row.short_dbn
+          .split(',')
+          .map(i => i.replace(/\s/g, '')))
+    )
+    council_capital_edu.set(data)
   })
 </script>
 

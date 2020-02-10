@@ -1,7 +1,7 @@
 <script>
   import SearchSchools from '../components/searchSchools.svelte'
   import SchoolItem from '../components/schoolItem.svelte'
-  import { school_projects } from '../stores'
+  import { school_projects, council_capital_edu } from '../stores'
 
   let selectedSchools = [
     {
@@ -24,9 +24,29 @@
           .filter(project => project.bbl === dbn_projects[0].bbl)
           .sort((a, b) => (a.year < b.year ? 1 : -1))
 
+        //pull short_dbn council funding from all projects of the building
+        const uniqueShortDBNs = Array.from(
+          new Set(bbl_projects.map(project => project.short_dbn))
+        )
+        function intersection(setA, setB) {
+          let _intersection = new Set()
+          for (let elem of setB) {
+            if (setA.has(elem)) {
+              _intersection.add(elem)
+            }
+          }
+          return _intersection
+        }
+
+        const council_projects = $council_capital_edu.filter(project => {
+          const projectDBNs = new Set(project.short_dbn_array)
+          return intersection(projectDBNs, uniqueShortDBNs).size
+        })
+
         //add all generated variables to return object
         selectedItem.dbn_projects = dbn_projects
         selectedItem.bbl_projects = bbl_projects
+        selectedItem.council_projects = council_projects
 
         return selectedItem
       })
@@ -43,7 +63,7 @@
     <nav class="level">
       <div class="level-left">
         <div class="level-item">
-          <p class="subtitle is-5">
+          <p class="subtitle is-7">
             View and compare schools
           </p>
         </div>
