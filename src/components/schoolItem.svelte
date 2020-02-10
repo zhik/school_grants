@@ -152,6 +152,7 @@
       </label>
       <Table columns="{bbl_table.columns}" rows="{bbl_table.rows}"></Table>
       {/if} {#if item.council_projects && item.council_projects.length}
+      <p class="subtitle is-5">City Council Capital Funding FY15 - FY20</p>
       <Table
         columns="{council_table.columns}"
         rows="{council_table.rows}"
