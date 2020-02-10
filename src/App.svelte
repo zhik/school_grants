@@ -44,9 +44,10 @@
   .app {
     display: flex;
     flex-wrap: wrap;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-      'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  :global(.is-1, .is-2, .is-3, .is-4, .is-5, .is-6) {
+    font-family: 'Merriweather', serif;
   }
   nav {
     margin: 2em;

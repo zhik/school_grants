@@ -95,15 +95,7 @@
     if (item.council_projects && item.council_projects.length > 0) {
       council_table = {
         columns: [
-          { name: 'Project ID', key: 'project_id' },
-          { name: 'FY', key: 'year', format: year => +year },
-          {
-            name: 'Funding',
-            key: 'fy_now',
-            format: amt => {
-              return '$' + format(',')(amt)
-            }
-          },
+          { name: 'ID', key: 'project_id' },
           {
             name: 'Title',
             key: 'title'
@@ -112,8 +104,16 @@
             name: 'Desc',
             key: 'desc'
           },
+          { name: 'FY', key: 'year', format: year => +year },
+          {
+            name: 'Funding',
+            key: 'fy_now',
+            format: amt => {
+              return '$' + format(',')(amt)
+            }
+          },
           { name: 'Sponsor', key: 'sponsor' },
-          { name: 'Short DBN', key: 'short_dbn' }
+          { name: 'BN', key: 'short_dbn' }
         ],
         //filter for duplicates from the dbn projects table
         rows: item.council_projects
@@ -151,8 +151,12 @@
         Show all projects
       </label>
       <Table columns="{bbl_table.columns}" rows="{bbl_table.rows}"></Table>
+      <hr />
       {/if} {#if item.council_projects && item.council_projects.length}
       <p class="subtitle is-5">City Council Capital Funding FY15 - FY20</p>
+      <span class="note">
+        Note: This data is for all schools in the building
+      </span>
       <Table
         columns="{council_table.columns}"
         rows="{council_table.rows}"
@@ -171,6 +175,9 @@
   }
   .message {
     max-width: 80vw;
+  }
+  .note {
+    font-size: 0.8rem;
   }
 
   .toggle {

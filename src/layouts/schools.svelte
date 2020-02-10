@@ -58,7 +58,7 @@
 
 <main>
   <h3 class="title is-3">MBPO x BetaNYC</h3>
-  <h6 class="subtitle is-6">Funding by Schools and Buildings</h6>
+  <h6 class="subtitle is-6">School Funding</h6>
   <div class="container">
     <nav class="level">
       <div class="level-left">
