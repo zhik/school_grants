@@ -3,13 +3,13 @@
   import { routes } from './routes'
   import 'bulma/css/bulma.css'
   import { mbpo_capital, council_capital_edu } from './stores'
-  import * as d3 from 'd3'
+  import { csv } from 'd3-fetch'
 
-  d3.csv('data/mbpo_capital.csv').then(data => {
+  csv('data/mbpo_capital.csv').then(data => {
     mbpo_capital.set(data)
   })
 
-  d3.csv('data/council_capital_edu.csv').then(data => {
+  csv('data/council_capital_edu.csv').then(data => {
     //split short_dbn to array of strings
     data.forEach(
       row =>

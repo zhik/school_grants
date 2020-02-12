@@ -8,7 +8,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "fa-svelte": "^3.1.0",
@@ -22,7 +25,8 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "bulma": "^0.8.0",
-    "d3": "^5.15.0",
+    "d3-fetch": "^1.1.2",
+    "d3-format": "^1.4.3",
     "rollup-plugin-postcss": "^2.0.6",
     "sirv-cli": "^0.4.4",
     "svelte-select": "^3.3.7",

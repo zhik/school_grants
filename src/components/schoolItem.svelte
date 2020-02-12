@@ -1,9 +1,9 @@
 <script>
   import Table from '../components/table.svelte'
   import Map from '../components/map.svelte'
-  import { format } from 'd3'
+  import { format } from 'd3-format'
   import Icon from 'fa-svelte'
-  import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+  import faExclamationTriangle from '@fortawesome/free-solid-svg-icons/faExclamationTriangle'
 
   export let item
 

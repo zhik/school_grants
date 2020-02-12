@@ -17,7 +17,6 @@ export default {
     file: 'public/build/bundle.js'
   },
   plugins: [
-    babel(),
     postcss(),
     svelte({
       // enable run-time checks when not in production
@@ -39,6 +38,30 @@ export default {
       dedupe: ['svelte']
     }),
     commonjs(),
+    production &&
+      babel({
+        extensions: ['.js', '.mjs', '.html', '.svelte'],
+        runtimeHelpers: true,
+        exclude: ['node_modules/@babel/**'], // <= /!\ NOT 'node_mobules/**'
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              // adapter to ensure IE 11 support
+              targets: '> 0.25%, not dead, IE 11'
+            }
+          ]
+        ],
+        plugins: [
+          '@babel/plugin-syntax-dynamic-import',
+          [
+            '@babel/plugin-transform-runtime',
+            {
+              useESModules: true
+            }
+          ]
+        ]
+      }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
