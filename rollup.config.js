@@ -42,7 +42,7 @@ export default {
       babel({
         extensions: ['.js', '.mjs', '.html', '.svelte'],
         runtimeHelpers: true,
-        exclude: ['node_modules/@babel/**'], // <= /!\ NOT 'node_mobules/**'
+        exclude: ['node_modules/@babel/**', /\/core-js\//],
         presets: [
           [
             '@babel/preset-env',
