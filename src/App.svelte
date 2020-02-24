@@ -28,7 +28,7 @@
         <a href="/" use:link>Home</a>
       </li>
       <li>
-        <a href="/geographies" use:link>Geographies</a>
+        <a href="https://arcg.is/1euKnn">Analysis</a>
       </li>
       <li>
         <a href="/schools" use:link>Schools</a>
